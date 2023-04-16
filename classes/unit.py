@@ -25,11 +25,11 @@ class BaseUnit(ABC):
 
     @property
     def health_points(self):
-        return f"{self.hp}/{self.unit_class.max_health}"
+        return self.hp
 
     @property
     def stamina_points(self):
-        return f"{self.stamina}/{self.unit_class.max_stamina}"
+        return self.stamina
 
     def equip_weapon(self, weapon: Weapon):
         # TODO присваиваем нашему герою новое оружие

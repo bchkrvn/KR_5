@@ -39,8 +39,11 @@ class Units:
 
         return units_dict
 
-    def get_units(self):
+    def get_units(self) -> dict[str, UnitClass]:
         return self._units
 
-    def __repr__(self):
+    def get_unit_by_class(self, unit_class: str) -> UnitClass:
+        return self._units[unit_class]
+
+    def __repr__(self) -> str:
         return f'Skills {list(self._units.keys())}'
