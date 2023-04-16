@@ -1,29 +1,35 @@
+import random
 from dataclasses import dataclass
-from typing import List
-from random import uniform
-import marshmallow_dataclass
-import marshmallow
 import json
+
+from constants import EQUIPMENT_PATH
 
 
 @dataclass
 class Armor:
-    pass
+    id: int
+    name: str
+    defence: float
+    stamina_per_turn: float
 
 
 @dataclass
 class Weapon:
-    pass
+    id: int
+    name: str
+    min_damage: float
+    max_damage: float
+    stamina_per_hit: float
 
     @property
     def damage(self):
-        pass
+        return round(random.uniform(self.min_damage, self.max_damage), 1)
 
 
 @dataclass
 class EquipmentData:
-    # TODO содержит 2 списка - с оружием и с броней
-    pass
+    weapons: dict[str, Weapon]
+    armors: dict[str, Armor]
 
 
 class Equipment:
@@ -32,28 +38,26 @@ class Equipment:
         self.equipment = self._get_equipment_data()
 
     def get_weapon(self, weapon_name) -> Weapon:
-        # TODO возвращает объект оружия по имени
-        pass
+        return self.equipment.weapons[weapon_name]
 
     def get_armor(self, armor_name) -> Armor:
-        # TODO возвращает объект брони по имени
-        pass
+        return self.equipment.armors[armor_name]
 
     def get_weapons_names(self) -> list:
-        # TODO возвращаем список с оружием
-        pass
+        return list(self.equipment.weapons.keys())
 
     def get_armors_names(self) -> list:
-        # TODO возвращаем список с броней
-        pass
+        return list(self.equipment.armors.keys())
 
     @staticmethod
     def _get_equipment_data() -> EquipmentData:
-        # TODO этот метод загружает json в переменную EquipmentData
-        equipment_file = open("./data/equipment.json")
-        data = json.load( ... )
-        equipment_schema = marshmallow_dataclass.class_schema( ... )
         try:
-            return equipment_schema().load(data)
-        except marshmallow.exceptions.ValidationError:
-            raise ValueError
+            with open(EQUIPMENT_PATH) as file:
+                equipment_data = json.load(file)
+        except FileNotFoundError:
+            equipment_data = dict()
+
+        weapons = {weapon['name']: Weapon(**weapon) for weapon in equipment_data['weapon']}
+        armors = {armor['name']: Armor(**armor) for armor in equipment_data['armor']}
+
+        return EquipmentData(weapons, armors)
