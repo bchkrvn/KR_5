@@ -23,8 +23,7 @@ def menu_page():
 
 @app.route("/fight/")
 def start_fight():
-    arena.player = heroes['player']
-    arena.enemy = heroes['enemy']
+    arena.start_game(**heroes)
     return render_template('fight.html', heroes=heroes)
 
 
@@ -34,7 +33,8 @@ def hit():
     # TODO обновляем экран боя (нанесение удара) (шаблон fight.html)
     # TODO если игра идет - вызываем метод player.hit() экземпляра класса арены
     # TODO если игра не идет - пропускаем срабатывание метода (простот рендерим шаблон с текущими данными)
-    pass
+
+    return render_template('fight.html', heroes=heroes, result=result)
 
 
 @app.route("/fight/use-skill")

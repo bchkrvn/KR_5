@@ -18,9 +18,8 @@ class Arena(metaclass=BaseSingleton):
     game_is_running = False
 
     def start_game(self, player: BaseUnit, enemy: BaseUnit):
-        # TODO НАЧАЛО ИГРЫ -> None
-        # TODO присваиваем экземпляру класса аттрибуты "игрок" и "противник"
-        # TODO а также выставляем True для свойства "началась ли игра"
+        self.player = player
+        self.enemy = enemy
         self.game_is_running = True
         pass
 
@@ -36,7 +35,8 @@ class Arena(metaclass=BaseSingleton):
         # TODO регенерация здоровья и стамины для игрока и врага за ход
         # TODO в этом методе к количеству стамины игрока и врага прибавляется константное значение.
         # TODO главное чтобы оно не привысило максимальные значения (используйте if)
-        pass
+        self.player.add_stamina(self.STAMINA_PER_ROUND)
+        self.enemy.add_stamina(self.STAMINA_PER_ROUND)
 
     def next_turn(self):
         # TODO СЛЕДУЮЩИЙ ХОД -> return result | return self.enemy.hit(self.player)
@@ -60,6 +60,7 @@ class Arena(metaclass=BaseSingleton):
         # TODO получаем результат от функции self.player.hit
         # TODO запускаем следующий ход
         # TODO возвращаем результат удара строкой
+        result = self.player.hit(self.enemy)
         pass
 
     def player_use_skill(self):
