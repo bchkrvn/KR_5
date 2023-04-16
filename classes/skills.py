@@ -1,4 +1,6 @@
 from __future__ import annotations
+
+import json
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
@@ -10,47 +12,52 @@ class SkillBase(ABC):
     """
     Базовый класс умения
     """
-    user = None
-    target = None
 
     @property
     @abstractmethod
-    def name(self):
+    def name(self) -> str:
         pass
 
     @property
     @abstractmethod
-    def stamina(self):
+    def stamina(self) -> int:
         pass
 
     @property
     @abstractmethod
-    def damage(self):
+    def damage(self) -> int:
         pass
 
     @abstractmethod
     def skill_effect(self) -> str:
         pass
 
-    def _is_stamina_enough(self):
-        return self.user.stamina > self.stamina
+    @abstractmethod
+    def _is_stamina_enough(self, user) -> bool:
+        pass
 
-    def use(self, user: BaseUnit, target: BaseUnit) -> str:
-        """
-        Проверка, достаточно ли выносливости у игрока для применения умения.
-        Для вызова скилла везде используем просто use
-        """
-        self.user = user
-        self.target = target
-        if self._is_stamina_enough:
-            return self.skill_effect()
-        return f"{self.user.name} попытался использовать {self.name} но у него не хватило выносливости."
+    @abstractmethod
+    def use(self, user: BaseUnit) -> str:
+        pass
 
 
 class Skill(SkillBase):
-    name = ...
-    stamina = ...
-    damage = ...
+    def __init__(self, name: str, stamina: int, damage: int):
+        self._name = name
+        self._stamina = stamina
+        self._damage = damage
+
+    @property
+    def name(self) -> str:
+        return self._name
+
+    @property
+    def stamina(self) -> int:
+        return self._stamina
+
+    @property
+    def damage(self) -> int:
+        return self._damage
 
     def skill_effect(self):
         # TODO логика использования скилла -> return str
@@ -60,17 +67,32 @@ class Skill(SkillBase):
         # TODO результат применения возвращаем строкой
         pass
 
+    def _is_stamina_enough(self, user):
+        return user.stamina > self.stamina
 
-class HardShot(Skill):
-    name = ...
-    stamina = ...
-    damage = ...
+    def use(self, user: BaseUnit) -> str:
+        """
+        Проверка, достаточно ли выносливости у игрока для применения умения.
+        Для вызова скилла везде используем просто use
+        """
+        if self._is_stamina_enough(user):
+            return self.skill_effect()
+        return f"{user.name} попытался использовать {self._name} но у него не хватило выносливости."
 
-    def skill_effect(self):
-        pass
+    def __repr__(self):
+        return f"Skill {self.name}"
 
 
-skills = {
-    FuryPunch.name: FuryPunch(),
-    HardShot.name: HardShot()
-}
+def skills() -> dict[str:Skill]:
+    try:
+        with open('../data/skills.json') as file:
+            skills_data = json.load(file)
+    except FileNotFoundError:
+        return dict()
+
+    skills_dict = dict()
+    for skill in skills_data:
+        skill_object = Skill(**skill)
+        skills_dict[skill_object.name] = skill_object
+
+    return skills_dict

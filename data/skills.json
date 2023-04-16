@@ -1,12 +1,12 @@
 [
   {
     "name": "Свирепый пинок",
-    "required stamina": 6,
+    "stamina": 6,
     "damage": 12
   },
   {
     "name": "Мощный укол",
-    "required stamina": 5,
+    "stamina": 5,
     "damage": 15
   }
 ]
