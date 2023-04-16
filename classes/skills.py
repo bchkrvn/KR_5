@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import json
-import os.path
 from abc import ABC, abstractmethod
+from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from constants import SKILL_PATH
@@ -65,7 +65,7 @@ class Skill(SkillBase):
     def skill_effect(self):
         # TODO логика использования скилла -> return str
         # TODO в классе нам доступны экземпляры user и target - можно использовать любые их методы
-        # TODO именно здесь происходит уменшение стамины у игрока применяющего умение и
+        # TODO именно здесь происходит уменьшение стамины у игрока применяющего умение и
         # TODO уменьшение здоровья цели.
         # TODO результат применения возвращаем строкой
         pass
@@ -86,16 +86,23 @@ class Skill(SkillBase):
         return f"Skill {self.name}"
 
 
-def get_skills() -> dict[str:Skill]:
-    try:
-        with open(SKILL_PATH) as file:
-            skills_data = json.load(file)
-    except FileNotFoundError:
-        return dict()
+class Skills:
+    def __init__(self):
+        self._skills = self._get_skills_from_json()
 
-    skills_dict = dict()
-    for skill in skills_data:
-        skill_object = Skill(**skill)
-        skills_dict[skill_object.name] = skill_object
+    @staticmethod
+    def _get_skills_from_json() -> dict[str:Skill]:
+        try:
+            with open(SKILL_PATH) as file:
+                skills_data = json.load(file)
+        except FileNotFoundError:
+            return dict()
 
-    return skills_dict
+        skills_dict = {skill['name']: Skill(**skill) for skill in skills_data}
+        return skills_dict
+
+    def get_skills(self):
+        return self._skills
+
+    def __repr__(self):
+        return f'Skills {list(self._skills.keys())}'

@@ -71,10 +71,14 @@ class BaseUnit(ABC):
         self.unit_class.skill.use(user=self, target=target)
         и уже эта функция вернем нам строку которая характеризует выполнение умения
         """
+        if self._is_skill_used:
+            return f'Навык  {self.unit_class.skill.name} уже использован'
         pass
 
 
 class PlayerUnit(BaseUnit):
+    def __init__(self, name: str, unit_class: UnitClass, weapon: Weapon, armor: Armor):
+        super().__init__(name, unit_class, weapon, armor)
 
     def hit(self, target: BaseUnit) -> str:
         """
@@ -91,6 +95,8 @@ class PlayerUnit(BaseUnit):
 
 
 class EnemyUnit(BaseUnit):
+    def __init__(self, name: str, unit_class: UnitClass, weapon: Weapon, armor: Armor):
+        super().__init__(name, unit_class, weapon, armor)
 
     def hit(self, target: BaseUnit) -> str:
         """

@@ -57,7 +57,10 @@ class Equipment:
         except FileNotFoundError:
             equipment_data = dict()
 
-        weapons = {weapon['name']: Weapon(**weapon) for weapon in equipment_data['weapon']}
-        armors = {armor['name']: Armor(**armor) for armor in equipment_data['armor']}
+        weapons = {weapon['name']: Weapon(**weapon) for weapon in equipment_data['weapons']}
+        armors = {armor['name']: Armor(**armor) for armor in equipment_data['armors']}
 
         return EquipmentData(weapons, armors)
+
+    def __repr__(self):
+        return f'Equipment weapons:{self.get_weapons_names()}, armors:{self.get_armors_names()}'

@@ -1,5 +1,6 @@
 from classes.unit import BaseUnit
 
+
 class BaseSingleton(type):
     _instances = {}
 
@@ -20,6 +21,7 @@ class Arena(metaclass=BaseSingleton):
         # TODO НАЧАЛО ИГРЫ -> None
         # TODO присваиваем экземпляру класса аттрибуты "игрок" и "противник"
         # TODO а также выставляем True для свойства "началась ли игра"
+        self.game_is_running = True
         pass
 
     def _check_players_hp(self):
