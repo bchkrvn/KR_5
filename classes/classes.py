@@ -1,4 +1,8 @@
+import json
+from dataclasses import dataclass
+
 from classes.skills import Skill
+from constants import UNIT_PATH
 
 
 @dataclass
@@ -12,11 +16,19 @@ class UnitClass:
     skill: Skill
 
 
-WarriorClass =()
+def get_units(skills: dict[str, Skill]) -> dict[str, UnitClass]:
+    try:
+        with open(UNIT_PATH) as file:
+            units_data = json.load(file)
+    except FileNotFoundError:
+        return dict()
 
-ThiefClass = ... # TODO действуем так же как и с войном
+    for unit in units_data:
+        unit['skill'] = skills[unit['skill']]
 
-unit_classes = {
-    ThiefClass.name: ThiefClass,
-    WarriorClass.name: WarriorClass
-}
+    units_dict = dict()
+    for unit in units_data:
+        unit_object = UnitClass(**unit)
+        units_dict[unit_object.name] = unit_object
+
+    return units_dict

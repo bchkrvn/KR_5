@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import json
+import os.path
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
+
+from constants import SKILL_PATH
 
 if TYPE_CHECKING:
     from unit import BaseUnit
@@ -83,9 +86,9 @@ class Skill(SkillBase):
         return f"Skill {self.name}"
 
 
-def skills() -> dict[str:Skill]:
+def get_skills() -> dict[str:Skill]:
     try:
-        with open('../data/skills.json') as file:
+        with open(SKILL_PATH) as file:
             skills_data = json.load(file)
     except FileNotFoundError:
         return dict()

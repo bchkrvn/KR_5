@@ -9,7 +9,6 @@
     "skill": "Свирепый пинок"
   },
   {
-    "id": 2,
     "name": "Вор",
     "max_health": 50.0,
     "max_stamina": 25.0,

@@ -105,3 +105,5 @@ class EnemyUnit(BaseUnit):
         f"{self.name} используя {self.weapon.name} пробивает {target.armor.name} и наносит Вам {damage} урона."
         f"{self.name} используя {self.weapon.name} наносит удар, но Ваш(а) {target.armor.name} его останавливает."
         f"{self.name} попытался использовать {self.weapon.name}, но у него не хватило выносливости."
+
+
