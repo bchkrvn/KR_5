@@ -1,38 +1,12 @@
-import random
-from dataclasses import dataclass
 import json
 
+from classes.equipments.armor import Armor
+from classes.equipments.equipment_data import EquipmentData
+from classes.equipments.weapon import Weapon
 from constants import EQUIPMENT_PATH
 
 
-@dataclass
-class Armor:
-    id: int
-    name: str
-    defence: float
-    stamina_per_turn: float
-
-
-@dataclass
-class Weapon:
-    id: int
-    name: str
-    min_damage: float
-    max_damage: float
-    stamina_per_hit: float
-
-    @property
-    def damage(self):
-        return round(random.uniform(self.min_damage, self.max_damage), 1)
-
-
-@dataclass
-class EquipmentData:
-    weapons: dict[str, Weapon]
-    armors: dict[str, Armor]
-
-
-class Equipment:
+class Equipments:
 
     def __init__(self):
         self.equipment = self._get_equipment_data()

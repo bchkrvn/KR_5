@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 import random
-from abc import ABC, abstractmethod
+from abc import ABC
 
 from classes.classes import UnitClass
-from classes.equipment import Weapon, Armor
-from typing import Optional
+from classes.equipments.equipments import Weapon, Armor
 
 
 class BaseUnit(ABC):

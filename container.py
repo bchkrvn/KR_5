@@ -1,10 +1,10 @@
 from classes.classes import Units
-from classes.equipment import Equipment
+from classes.equipments.equipments import Equipments
 from classes.skills import Skills
 
 skills = Skills()
 units = Units(skills.get_skills())
-equipment = Equipment()
+equipment = Equipments()
 
 result_choice_hero = {
     'header': 'Выберите героя',
