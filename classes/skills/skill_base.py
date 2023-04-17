@@ -2,7 +2,7 @@ from abc import abstractmethod, ABC
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from classes.unit import BaseUnit
+    from classes.units.unit_base import UnitBase
 
 
 class SkillBase(ABC):
@@ -26,7 +26,7 @@ class SkillBase(ABC):
         pass
 
     @abstractmethod
-    def skill_effect(self, user: BaseUnit, target: BaseUnit) -> str:
+    def skill_effect(self, user: UnitBase, target: UnitBase) -> str:
         pass
 
     @abstractmethod
@@ -34,7 +34,7 @@ class SkillBase(ABC):
         pass
 
     @abstractmethod
-    def use(self, user: BaseUnit, target: BaseUnit) -> str:
+    def use(self, user: UnitBase, target: UnitBase) -> str:
         pass
 
     def __repr__(self):

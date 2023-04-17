@@ -1,16 +1,10 @@
-from typing import Optional
+from typing import TYPE_CHECKING
 
-from classes.unit import BaseUnit
+from classes.arena.base_singltone import BaseSingleton
 
-
-class BaseSingleton(type):
-    _instances = {}
-
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            instance = super().__call__(*args, **kwargs)
-            cls._instances[cls] = instance
-        return cls._instances[cls]
+if TYPE_CHECKING:
+    from typing import Optional
+    from classes.units.unit_base import UnitBase
 
 
 class Arena(metaclass=BaseSingleton):
@@ -19,7 +13,7 @@ class Arena(metaclass=BaseSingleton):
     enemy = None
     game_is_running = False
 
-    def start_game(self, player: BaseUnit, enemy: BaseUnit):
+    def start_game(self, player: UnitBase, enemy: UnitBase):
         self.player = player
         self.enemy = enemy
         self.game_is_running = True

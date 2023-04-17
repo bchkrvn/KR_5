@@ -1,19 +1,10 @@
-from copy import copy
-
 from flask import Flask, render_template, request, redirect
 
-from classes.base import Arena
-from classes.unit import PlayerUnit, EnemyUnit
-from container import result_choice_hero, units, result_choice_enemy, equipment
+from classes.units.enemy import Enemy
+from classes.units.player import Player
+from container import result_choice_hero, units, result_choice_enemy, equipment, arena, heroes
 
 app = Flask(__name__)
-
-heroes = {
-    "player": None,
-    "enemy": None
-}
-
-arena = Arena()
 
 
 @app.route("/")
@@ -104,7 +95,7 @@ def choose_hero():
         unit = units.get_hero_by_class(request.form.get('unit_class'))
         weapon = equipment.get_weapon(request.form.get('weapon'))
         armor = equipment.get_armor(request.form.get('armor'))
-        heroes['player'] = PlayerUnit(name, unit, weapon, armor)
+        heroes['player'] = Player(name, unit, weapon, armor)
         return redirect('/choose-enemy/')
 
 
@@ -118,7 +109,7 @@ def choose_enemy():
         unit = units.get_hero_by_class(request.form.get('unit_class'))
         weapon = equipment.get_weapon(request.form.get('weapon'))
         armor = equipment.get_armor(request.form.get('armor'))
-        heroes['enemy'] = EnemyUnit(name, unit, weapon, armor)
+        heroes['enemy'] = Enemy(name, unit, weapon, armor)
         return redirect('/fight/')
 
 

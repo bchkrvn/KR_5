@@ -1,13 +1,11 @@
-from __future__ import annotations
-
-import random
 from abc import ABC
 
-from classes.hero.heroes import Hero
-from classes.equipments.equipments import Weapon, Armor
+from classes.equipments.armor import Armor
+from classes.equipments.weapon import Weapon
+from classes.hero.hero import Hero
 
 
-class BaseUnit(ABC):
+class UnitBase(ABC):
     """
     Базовый класс юнита
     """
@@ -40,7 +38,7 @@ class BaseUnit(ABC):
         self.armor = armor
         return f"{self.name} экипирован броней {self.weapon.name}"
 
-    def _count_damage(self, target: BaseUnit) -> int:
+    def _count_damage(self, target: UnitBase) -> int:
         absolute_damage = round(self.weapon.damage * self.unit_class.attack, 1)
         self.subtract_stamina(self.weapon.stamina_per_hit)
 
@@ -70,7 +68,7 @@ class BaseUnit(ABC):
         if self.stamina > self.unit_class.max_stamina:
             self.stamina = self.unit_class.max_stamina
 
-    def hit(self, target: BaseUnit) -> str:
+    def hit(self, target: UnitBase) -> str:
 
         if self.weapon.stamina_per_hit > self.stamina_points:
             return f"{self.name} попытался использовать {self.weapon.name}, но у него не хватило выносливости. "
@@ -82,28 +80,9 @@ class BaseUnit(ABC):
         else:
             return f"{self.name} используя {self.weapon.name} наносит удар, но {target.armor.name} cоперника его останавливает. "
 
-    def use_skill(self, target: BaseUnit) -> str:
+    def use_skill(self, target: UnitBase) -> str:
         if self._is_skill_used:
             return f'Навык  {self.unit_class.skill.name} уже использован! '
 
         self._is_skill_used = True
         return self.unit_class.skill.use(self, target)
-
-
-class PlayerUnit(BaseUnit):
-    def __init__(self, name: str, unit_class: Hero, weapon: Weapon, armor: Armor):
-        super().__init__(name, unit_class, weapon, armor)
-
-
-class EnemyUnit(BaseUnit):
-    def __init__(self, name: str, unit_class: Hero, weapon: Weapon, armor: Armor):
-        super().__init__(name, unit_class, weapon, armor)
-
-    def hit(self, target: BaseUnit) -> str:
-        if not self._is_skill_used and self.stamina_points > self.unit_class.skill.stamina:
-            random_number = random.randint(1, 10)
-
-            if random_number == 1:
-                return self.use_skill(target)
-
-        return super().hit(target)

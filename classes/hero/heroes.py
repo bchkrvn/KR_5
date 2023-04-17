@@ -14,14 +14,14 @@ class Heroes:
     def get_heroes_from_json(skills: dict[str, Skill]) -> dict[str, Hero]:
         try:
             with open(HEROES_PATH) as file:
-                heroes_data = json.load(file)
+                heroes_data: dict = json.load(file)
         except FileNotFoundError:
             return dict()
 
-        for unit in heroes_data:
-            unit['skill'] = skills[unit['skill']]
+        for hero in heroes_data:
+            hero['skill'] = skills[hero['skill']]
 
-        heroes_dict = {hero['name']: Hero(**unit) for hero in heroes_data}
+        heroes_dict = {hero['name']: Hero(**hero) for hero in heroes_data}
 
         return heroes_dict
 

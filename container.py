@@ -1,10 +1,17 @@
+from classes.arena.arena import Arena
 from classes.hero.heroes import Heroes
 from classes.equipments.equipments import Equipments
-from classes.skills import Skills
+from classes.skills.skills import Skills
 
 skills = Skills()
 units = Heroes(skills.get_skills())
 equipment = Equipments()
+
+arena = Arena()
+heroes = {
+    "player": None,
+    "enemy": None
+}
 
 result_choice_hero = {
     'header': 'Выберите героя',
