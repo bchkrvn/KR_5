@@ -4,6 +4,9 @@ from dataclasses import dataclass
 
 @dataclass
 class Weapon:
+    """
+    Датакласс оружия
+    """
     id: int
     name: str
     min_damage: float
@@ -12,4 +15,7 @@ class Weapon:
 
     @property
     def damage(self):
+        """
+        Функция для получения рандомного урона в заданном диапазоне
+        """
         return round(random.uniform(self.min_damage, self.max_damage), 1)

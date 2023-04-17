@@ -3,6 +3,9 @@ from dataclasses import dataclass
 
 @dataclass
 class Armor:
+    """
+    Датакласс защиты
+    """
     id: int
     name: str
     defence: float

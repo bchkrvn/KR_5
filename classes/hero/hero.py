@@ -5,6 +5,9 @@ from classes.skills.skill import Skill
 
 @dataclass
 class Hero:
+    """
+    Датакласс героя для игры
+    """
     name: str
     max_health: float
     max_stamina: float

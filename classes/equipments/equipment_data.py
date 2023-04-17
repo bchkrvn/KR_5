@@ -6,5 +6,8 @@ from classes.equipments.weapon import Weapon
 
 @dataclass
 class EquipmentData:
+    """
+    Датакласс амуниции героев
+    """
     weapons: dict[str, Weapon]
     armors: dict[str, Armor]

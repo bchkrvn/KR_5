@@ -39,6 +39,13 @@ class UnitBase(ABC):
         return f"{self.name} экипирован броней {self.weapon.name}"
 
     def _count_damage(self, target) -> int:
+        """
+        Подсчет урона, наносимого сопернику
+        Полный урон (absolute_damage) = урон оружия * коэффициент урона героя
+        Защита (protection) = защита брони * коэффициент защиты героя
+        Урон (damage) = полный урон - защита
+        """
+
         absolute_damage = round(self.weapon.damage * self.unit_class.attack, 1)
         self.subtract_stamina(self.weapon.stamina_per_hit)
 
@@ -54,21 +61,33 @@ class UnitBase(ABC):
         return damage
 
     def get_damage(self, damage: float) -> None:
+        """
+        Получить урон игроком
+        """
         if self.hp > damage:
             self.hp = round(self.hp - damage, 1)
         else:
             self.hp = 0
 
     def subtract_stamina(self, stamina: float) -> None:
+        """
+        Вычесть выносливость после удара или защиты
+        """
         self.stamina = round(self.stamina - stamina, 1)
 
     def add_stamina(self, stamina: float) -> None:
+        """
+        Добавить выносливость после раунда
+        """
         self.stamina = round(self.stamina + stamina * self.unit_class.stamina, 1)
 
         if self.stamina > self.unit_class.max_stamina:
             self.stamina = self.unit_class.max_stamina
 
     def hit(self, target) -> str:
+        """
+        Функция удара игрока
+        """
 
         if self.weapon.stamina_per_hit > self.stamina_points:
             return f"{self.name} попытался использовать {self.weapon.name}, но у него не хватило выносливости. "
@@ -81,6 +100,9 @@ class UnitBase(ABC):
             return f"{self.name} используя {self.weapon.name} наносит удар, но {target.armor.name} cоперника его останавливает. "
 
     def use_skill(self, target) -> str:
+        """
+        Функция использования навыка игроком
+        """
         if self._is_skill_used:
             return f'Навык  {self.unit_class.skill.name} уже использован! '
 

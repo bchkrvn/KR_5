@@ -7,24 +7,42 @@ from constants import EQUIPMENT_PATH
 
 
 class Equipments:
+    """
+    Класс хранения всех видов амуниции героев
+    """
 
     def __init__(self):
-        self.equipment = self._get_equipment_data()
+        self._equipment = self._get_equipment_data()
 
     def get_weapon(self, weapon_name) -> Weapon:
-        return self.equipment.weapons[weapon_name]
+        """
+        Получить оружие по его названию
+        """
+        return self._equipment.weapons[weapon_name]
 
     def get_armor(self, armor_name) -> Armor:
-        return self.equipment.armors[armor_name]
+        """
+        Получить брони по ее названию
+        """
+        return self._equipment.armors[armor_name]
 
     def get_weapons_names(self) -> list:
-        return list(self.equipment.weapons.keys())
+        """
+        Получить список названий оружия
+        """
+        return list(self._equipment.weapons.keys())
 
     def get_armors_names(self) -> list:
-        return list(self.equipment.armors.keys())
+        """
+        Получить список названий брони
+        """
+        return list(self._equipment.armors.keys())
 
     @staticmethod
     def _get_equipment_data() -> EquipmentData:
+        """
+        Получить данные об амуниции из json файла
+        """
         try:
             with open(EQUIPMENT_PATH) as file:
                 equipment_data = json.load(file)
