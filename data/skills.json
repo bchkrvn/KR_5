@@ -8,5 +8,15 @@
     "name": "Мощный укол",
     "stamina": 5,
     "damage": 15
+  },
+  {
+    "name": "Помощь братков",
+    "stamina": 5,
+    "damage": 20
+  },
+  {
+    "name": "Авада-кедавра",
+    "stamina": 15,
+    "damage": 25
   }
 ]

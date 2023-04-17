@@ -20,6 +20,13 @@
       "max_damage": 1,
       "min_damage": 0.5,
       "stamina_per_hit": 1
+    },
+    {
+      "id": 4,
+      "name": "волшебная палочка",
+      "max_damage": 2.0,
+      "min_damage": 1.0,
+      "stamina_per_hit": 2
     }
   ],
   "armors": [
@@ -40,6 +47,12 @@
       "name": "панцирь",
       "defence": 2.0,
       "stamina_per_turn": 1.6
+    },
+    {
+      "id": 4,
+      "name": "бархатные тяги",
+      "defence": 2.5,
+      "stamina_per_turn": 2.0
     }
   ]
 }

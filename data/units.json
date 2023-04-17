@@ -16,5 +16,23 @@
     "stamina": 1.2,
     "armor": 1.0,
     "skill": "Мощный укол"
+  },
+  {
+    "name": "Орк",
+    "max_health": 70.0,
+    "max_stamina": 15.0,
+    "attack": 2,
+    "stamina": 0.5,
+    "armor": 1.5,
+    "skill": "Помощь братков"
+  },
+  {
+    "name": "Волшебник",
+    "max_health": 30.0,
+    "max_stamina": 50.0,
+    "attack": 3,
+    "stamina": 2.5,
+    "armor": 2.0,
+    "skill": "Авада-кедавра"
   }
 ]

@@ -56,8 +56,9 @@ class Arena(metaclass=BaseSingleton):
         return result
 
     def player_use_skill(self):
-        return self.player.use_skill(self.enemy)
-
+        result = self.player.use_skill(self.enemy)
+        self._stamina_regeneration()
+        return result
 
     def player_pass(self):
         self._stamina_regeneration()
