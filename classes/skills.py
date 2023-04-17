@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from constants import SKILL_PATH
@@ -62,25 +61,22 @@ class Skill(SkillBase):
     def damage(self) -> int:
         return self._damage
 
-    def skill_effect(self):
-        # TODO логика использования скилла -> return str
-        # TODO в классе нам доступны экземпляры user и target - можно использовать любые их методы
-        # TODO именно здесь происходит уменьшение стамины у игрока применяющего умение и
-        # TODO уменьшение здоровья цели.
-        # TODO результат применения возвращаем строкой
-        pass
+    def skill_effect(self, user: BaseUnit, target: BaseUnit):
+        user.subtract_stamina(self.stamina)
+        target.get_damage(self.damage)
+        return f'{user.name} применил навык "{self.name}" против {target.name} и нанес {self.damage} урона! '
 
     def _is_stamina_enough(self, user):
         return user.stamina > self.stamina
 
-    def use(self, user: BaseUnit) -> str:
+    def use(self, user: BaseUnit, target: BaseUnit) -> str:
         """
         Проверка, достаточно ли выносливости у игрока для применения умения.
         Для вызова скилла везде используем просто use
         """
         if self._is_stamina_enough(user):
-            return self.skill_effect()
-        return f"{user.name} попытался использовать {self._name} но у него не хватило выносливости."
+            return self.skill_effect(user, target)
+        return f"{user.name} попытался использовать {self._name} но у него не хватило выносливости. "
 
     def __repr__(self):
         return f"Skill {self.name}"
