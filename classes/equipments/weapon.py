@@ -1,5 +1,5 @@
+import random
 from dataclasses import dataclass
-from random import random
 
 
 @dataclass
@@ -13,4 +13,3 @@ class Weapon:
     @property
     def damage(self):
         return round(random.uniform(self.min_damage, self.max_damage), 1)
-

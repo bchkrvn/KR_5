@@ -1,10 +1,7 @@
-from typing import TYPE_CHECKING
-
 from classes.arena.base_singltone import BaseSingleton
 
-if TYPE_CHECKING:
-    from typing import Optional
-    from classes.units.unit_base import UnitBase
+from typing import Optional
+from classes.units.unit_base import UnitBase
 
 
 class Arena(metaclass=BaseSingleton):

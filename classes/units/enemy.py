@@ -1,11 +1,9 @@
-from random import random
-from typing import TYPE_CHECKING
+import random
 from classes.units.unit_base import UnitBase
 
-if TYPE_CHECKING:
-    from classes.equipments.armor import Armor
-    from classes.equipments.weapon import Weapon
-    from classes.hero.hero import Hero
+from classes.equipments.armor import Armor
+from classes.equipments.weapon import Weapon
+from classes.hero.hero import Hero
 
 
 class Enemy(UnitBase):

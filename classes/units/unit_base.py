@@ -38,7 +38,7 @@ class UnitBase(ABC):
         self.armor = armor
         return f"{self.name} экипирован броней {self.weapon.name}"
 
-    def _count_damage(self, target: UnitBase) -> int:
+    def _count_damage(self, target) -> int:
         absolute_damage = round(self.weapon.damage * self.unit_class.attack, 1)
         self.subtract_stamina(self.weapon.stamina_per_hit)
 
@@ -68,7 +68,7 @@ class UnitBase(ABC):
         if self.stamina > self.unit_class.max_stamina:
             self.stamina = self.unit_class.max_stamina
 
-    def hit(self, target: UnitBase) -> str:
+    def hit(self, target) -> str:
 
         if self.weapon.stamina_per_hit > self.stamina_points:
             return f"{self.name} попытался использовать {self.weapon.name}, но у него не хватило выносливости. "
@@ -80,7 +80,7 @@ class UnitBase(ABC):
         else:
             return f"{self.name} используя {self.weapon.name} наносит удар, но {target.armor.name} cоперника его останавливает. "
 
-    def use_skill(self, target: UnitBase) -> str:
+    def use_skill(self, target) -> str:
         if self._is_skill_used:
             return f'Навык  {self.unit_class.skill.name} уже использован! '
 
