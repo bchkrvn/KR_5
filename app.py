@@ -101,7 +101,7 @@ def choose_hero():
 
     elif request.method == 'POST':
         name = request.form.get('name')
-        unit = units.get_unit_by_class(request.form.get('unit_class'))
+        unit = units.get_hero_by_class(request.form.get('unit_class'))
         weapon = equipment.get_weapon(request.form.get('weapon'))
         armor = equipment.get_armor(request.form.get('armor'))
         heroes['player'] = PlayerUnit(name, unit, weapon, armor)
@@ -115,7 +115,7 @@ def choose_enemy():
 
     elif request.method == 'POST':
         name = request.form.get('name')
-        unit = units.get_unit_by_class(request.form.get('unit_class'))
+        unit = units.get_hero_by_class(request.form.get('unit_class'))
         weapon = equipment.get_weapon(request.form.get('weapon'))
         armor = equipment.get_armor(request.form.get('armor'))
         heroes['enemy'] = EnemyUnit(name, unit, weapon, armor)

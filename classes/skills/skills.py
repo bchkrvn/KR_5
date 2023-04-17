@@ -2,7 +2,7 @@ from __future__ import annotations
 import json
 
 from classes.skills.skill import Skill
-from constants import SKILL_PATH
+from constants import SKILLS_PATH
 
 
 class Skills:
@@ -12,7 +12,7 @@ class Skills:
     @staticmethod
     def _get_skills_from_json() -> dict[str:Skill]:
         try:
-            with open(SKILL_PATH) as file:
+            with open(SKILLS_PATH) as file:
                 skills_data = json.load(file)
         except FileNotFoundError:
             return dict()

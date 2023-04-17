@@ -3,7 +3,7 @@ from __future__ import annotations
 import random
 from abc import ABC
 
-from classes.classes import UnitClass
+from classes.hero.heroes import Hero
 from classes.equipments.equipments import Weapon, Armor
 
 
@@ -12,7 +12,7 @@ class BaseUnit(ABC):
     Базовый класс юнита
     """
 
-    def __init__(self, name: str, unit_class: UnitClass, weapon: Weapon, armor: Armor):
+    def __init__(self, name: str, unit_class: Hero, weapon: Weapon, armor: Armor):
         """
         При инициализации класса Unit используем свойства класса UnitClass
         """
@@ -91,12 +91,12 @@ class BaseUnit(ABC):
 
 
 class PlayerUnit(BaseUnit):
-    def __init__(self, name: str, unit_class: UnitClass, weapon: Weapon, armor: Armor):
+    def __init__(self, name: str, unit_class: Hero, weapon: Weapon, armor: Armor):
         super().__init__(name, unit_class, weapon, armor)
 
 
 class EnemyUnit(BaseUnit):
-    def __init__(self, name: str, unit_class: UnitClass, weapon: Weapon, armor: Armor):
+    def __init__(self, name: str, unit_class: Hero, weapon: Weapon, armor: Armor):
         super().__init__(name, unit_class, weapon, armor)
 
     def hit(self, target: BaseUnit) -> str:
