@@ -5,4 +5,7 @@ menu_blueprint = Blueprint('menu_blueprint', __name__, template_folder='./templa
 
 @menu_blueprint.get("/")
 def menu_page():
+    """
+    Вьюшка начали игры
+    """
     return render_template('index.html')
